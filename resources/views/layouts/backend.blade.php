@@ -11,6 +11,10 @@
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{asset('assets/css/app.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/bundles/summernote/summernote-bs4.css ') }}">
+  <link rel="stylesheet" href="{{ asset('assets/bundles/codemirror/lib/codemirror.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/bundles/codemirror/theme/duotone-dark.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/bundles/jquery-selectric/selectric.css ') }}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
@@ -495,12 +499,20 @@
   <script src="{{ asset('assets/js/app.min.js') }}"></script>
   <!-- JS Libraies -->
   <script src="{{ asset('assets/bundles/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/bundles/summernote/summernote-bs4.js') }}"></script>
+  <script src="{{ asset('assets/bundles/codemirror/lib/codemirror.js') }}"></script>
+  <script src="{{ asset('assets/bundles/codemirror/mode/javascript/javascript.js') }}"></script>
+  <script src="{{ asset('assets/bundles/jquery-selectric/jquery.selectric.min.js') }}"></script>
+  <script src="{{ asset('assets/bundles/ckeditor/ckeditor.js') }}"></script>
   <!-- Page Specific JS File -->
   <script src="{{ asset('assets/js/page/index.js') }}"></script>
+  <script src="{{ asset('assets/js/page/ckeditor.js') }}"></script>
+
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <!-- Custom JS File -->
   <script src="{{ asset('assets/js/custom.js') }}"></script>
+
 
   @yield('scripts')
 
