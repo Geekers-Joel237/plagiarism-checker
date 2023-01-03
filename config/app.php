@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Atomescrochus\StringSimilarities\StringSimilaritiesServiceProvider::class,
 
         /*
          * Application Service Providers...

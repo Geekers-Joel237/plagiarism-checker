@@ -7,14 +7,16 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Otika - Admin Dashboard Template</title>
+  @yield('meta')
+
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="assets/css/app.min.css">
+  <link rel="stylesheet" href="{{asset('assets/css/app.min.css')}}">
   <!-- Template CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
   <!-- Custom style CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+  <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
+  <link rel='shortcut icon' type='image/x-icon' href="{{asset('assets/img/favicon.ico')}}" />
 </head>
 
 <body>
@@ -183,7 +185,7 @@
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
             <li class="dropdown active">
-              <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Tableau de bord</span></a>
+              <a href="{{route('user.rapport.index')}}" class="nav-link"><i data-feather="monitor"></i><span>Tableau de bord</span></a>
             </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
@@ -194,7 +196,7 @@
               </ul>
             </li>
             <li class="dropdown ">
-                <a href="index.html" class="nav-link"><i data-feather="sliders"></i><span>Paramètres </span></a>
+                <a href="{{route('user.rapport.index')}}" class="nav-link"><i data-feather="sliders"></i><span>Paramètres </span></a>
               </li>
             {{-- <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
@@ -490,15 +492,18 @@
     </div>
   </div>
   <!-- General JS Scripts -->
-  <script src="assets/js/app.min.js"></script>
+  <script src="{{ asset('assets/js/app.min.js') }}"></script>
   <!-- JS Libraies -->
-  <script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
+  <script src="{{ asset('assets/bundles/apexcharts/apexcharts.min.js') }}"></script>
   <!-- Page Specific JS File -->
-  <script src="assets/js/page/index.js"></script>
+  <script src="{{ asset('assets/js/page/index.js') }}"></script>
   <!-- Template JS File -->
-  <script src="assets/js/scripts.js"></script>
+  <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <!-- Custom JS File -->
-  <script src="assets/js/custom.js"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+  @yield('scripts')
+
 </body>
 
 
