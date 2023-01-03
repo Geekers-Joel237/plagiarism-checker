@@ -19,3 +19,8 @@ use App\Http\Controllers\PointParPointController;
 
 Route::get('/',[App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 Route::resource('PointParPoint',PointParPointController::class);
+
+Route::group(['prefix' => 'user', 'namespace' => 'App\Http\Controllers\user', 'as' => 'user.'], function(){
+    Route::resource('rapport', 'RapportController');
+
+});
