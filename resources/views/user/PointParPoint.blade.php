@@ -30,9 +30,9 @@
                             <div class="col-sm-12 col-md-12">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Source</label>
                               <textarea class="summernote"></textarea>
-                              <button class="btn btn-primary">Charger le document</button>
+                              <input class="btn btn-primary" type="file">Charger le document</input>
                               <div class=" mt-3 ">
-                                <button class="btn  btn-warning">Controlez le plagiat</button>
+                                <button class="btn  btn-warning" >Controlez le plagiat</button>
                               </div>
 
                             </div>
@@ -45,7 +45,7 @@
                             <div class="col-sm-12 col-md-12">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cible</label>
                               <textarea class="summernote"></textarea>
-                              <button class="btn btn-primary">Charger le document</button>
+                              <input class="btn btn-primary" type="file">Charger le document</input>
 
                             </div>
                           </div>
