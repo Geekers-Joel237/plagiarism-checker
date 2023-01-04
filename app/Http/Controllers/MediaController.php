@@ -27,6 +27,7 @@ class MediaController extends Controller
     public function create()
     {
         //
+      
     }
 
     /**
@@ -38,12 +39,13 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'file'=>'required'
+            'file.*'=>'mimes:txt',
         ]);
         if ($validator->fails())
         {
             return response()->json($validator->failed());
         }
+       
         if($request->hasfile('file')) {
             try {
 
@@ -66,6 +68,7 @@ class MediaController extends Controller
        }
        else{
         return response()->json($validator->failed(), 400);
+      //  return redirect()->route('/user/PointParPoint')->with('success','product create successfully');
        }
     return response()->json([
         'message'=>'file(s) uploaded successfully',

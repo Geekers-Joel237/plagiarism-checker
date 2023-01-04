@@ -18,6 +18,8 @@ class CreateMediaTable extends Migration
             $table->string('filePath');
             $table->string('extension');
             $table->string('fileName');
+            $table->string('source');
+            $table->string('cible');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
