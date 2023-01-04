@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\controllers\Controller;
 use App\Models\PointParPoint;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class PointParPointController extends Controller
     public function index()
     {
         //
-        return view('PointParPoint.PointParPoint');
+        return view('user.PointParPoint');
     }
 
     /**

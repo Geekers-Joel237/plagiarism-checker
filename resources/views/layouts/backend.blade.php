@@ -197,12 +197,12 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="book-open"></i><span>Détection Plagiat</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="widget-chart.html">Document à Document</a></li>
+                <li><a class="nav-link" href="{{route('user.PointParPoint.index')}}">Document à Document</a></li>
                 <li><a class="nav-link" href="widget-data.html">Plagiat en ligne</a></li>
               </ul>
             </li>
             <li class="dropdown ">
-                <a href="{{route('user.rapport.index')}}" class="nav-link"><i data-feather="sliders"></i><span>Paramètres </span></a>
+                <a href="" class="nav-link"><i data-feather="sliders"></i><span>Paramètres </span></a>
               </li>
             {{-- <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>

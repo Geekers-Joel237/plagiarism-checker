@@ -5,7 +5,6 @@ namespace App\Http\Controllers\user;
 use App\Http\controllers\Controller;
 use App\Models\Rapport;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
 
 
 class RapportController extends Controller
