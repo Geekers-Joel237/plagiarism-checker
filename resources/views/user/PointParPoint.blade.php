@@ -18,11 +18,20 @@
         </div>
       
         <div class="row">
-        @if ($message = Session::get('success'))
+        @if ($message = Session::get('error'))
           <div class="alert alert-success">
              <p>{{ $message }}</p>
           </div>
         @endif
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+          @endif
           <form action="{{ route('media.store') }}" method="POST">
             @csrf
             <div class="col-12">
@@ -39,7 +48,7 @@
                                 <textarea class="summernote"></textarea>
                                 <input class="btn btn-primary" type="file" name="file">Charger le document</input>
                                 <div class=" mt-3 ">
-                                  <button class="btn  btn-warning" type="submit" required>Controlez le plagiat</button>
+                                  <button class="btn  btn-warning" type="submit">Controlez le plagiat</button>
                                 </div>
   
                               </div>
@@ -50,7 +59,7 @@
                               <div class="col-sm-12 col-md-12">
                                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cible</label>
                                 <textarea class="summernote"></textarea>
-                                <input class="btn btn-primary" type="file" name="cible" required>Charger le document</input>
+                                <input class="btn btn-primary" type="file" name="cible" >Charger le document</input>
                               </div>
                          </div>
                   </div>

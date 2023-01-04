@@ -38,7 +38,7 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+      /*  $validator = Validator::make($request->all(),[
             'file.*'=>'mimes:txt',
         ]);
         if ($validator->fails())
@@ -73,7 +73,33 @@ class MediaController extends Controller
     return response()->json([
         'message'=>'file(s) uploaded successfully',
         'file' => $fileName
-    ]);
+    ]);*/
+   $request->validate([
+    'file' => 'required|mimes:csv,txt,xlx,xls,pdf'
+   ]);
+
+   $fileModal = new Media;
+   if($request->file()){
+        $fileName = time().'_'.$request->file->getClientOriginalName();
+        $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+        $extension = $request->file('file')->getClientOriginalExtension();
+
+        $fileModel->name = time().'_'.$request->file->getClientOriginalName();
+        $fileModel->file_path = '/storage/' . $filePath;
+        $fileModel->save();
+
+        return response()->json([
+            'message'=>'file(s) uploaded successfully',
+            'file' => $fileName
+        ]);
+
+       /* return back()
+        ->with('success','File has been uploaded.')
+        ->with('file', $fileName);*/
+   }else{
+     return back()
+    ->with('error','File has been uploaded.');
+   }
 
     }
 
