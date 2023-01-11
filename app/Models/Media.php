@@ -10,9 +10,11 @@ class Media extends Model
     use HasFactory;
     protected $fillable= [
         'id',
-        'filePath',
-        'extension',
-        'fileName',
+        'filePathCible',
+        'extensionCible',
+        'fileNameCible',
+        'filePathSource',
+        'fileNameSource'
     ];
     protected $dates = ['created_at','update_at'];
 }

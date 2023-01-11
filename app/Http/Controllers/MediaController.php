@@ -38,67 +38,59 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-      /*  $validator = Validator::make($request->all(),[
-            'file.*'=>'mimes:txt',
-        ]);
-        if ($validator->fails())
-        {
-            return response()->json($validator->failed());
-        }
-       
-        if($request->hasfile('file')) {
-            try {
+      
+   /* $validator = Validator::make($request->all(),[
+        'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+    ]);
+   
 
-                $fileFormat = $request->file('file')->gettype();
-                $extension = $request->file('file')->getClientOriginalExtension();
-                $name = time().'_'.$request->file('file')->getClientOriginalName();
-                $fileName = substr($name,0,strlen($name)-(strlen($extension)+1));
-                $filePath = $request->file('file')->storeAs('news', $name);
-           media::create(array_merge($request->all(),
-           [
-               'filePath'=>$filePath,
-               'extension'=>$extension,
-               'fileName'=>$fileName,
-           ]));
-            } catch (\Throwable $th) {
-                return response()->json([
-                    "error"=>$th
-                ], 400);
-            }
-       }
-       else{
-        return response()->json($validator->failed(), 400);
-      //  return redirect()->route('/user/PointParPoint')->with('success','product create successfully');
-       }
-    return response()->json([
-        'message'=>'file(s) uploaded successfully',
-        'file' => $fileName
-    ]);*/
-   $request->validate([
-    'file' => 'required|mimes:csv,txt,xlx,xls,pdf'
-   ]);
-
-   $fileModal = new Media;
-   if($request->file()){
+   $fileModal = new Media;*/
+  /* if($request->file()){
         $fileName = time().'_'.$request->file->getClientOriginalName();
         $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
         $extension = $request->file('file')->getClientOriginalExtension();
 
-        $fileModel->name = time().'_'.$request->file->getClientOriginalName();
-        $fileModel->file_path = '/storage/' . $filePath;
-        $fileModel->save();
+        $fileModal->fileName = time().'_'.$request->file->getClientOriginalName();
+        $fileModal->filePath = '/storage/' . $filePath;
+        $fileModal->extension = $extension;
+        $fileModal->save();
 
-        return response()->json([
-            'message'=>'file(s) uploaded successfully',
-            'file' => $fileName
-        ]);
-
-       /* return back()
-        ->with('success','File has been uploaded.')
-        ->with('file', $fileName);*/
+        return back()
+        ->with('success','File has been uploaded.');
+       
    }else{
      return back()
-    ->with('error','File has been uploaded.');
+    ->with('error','File has not been uploaded.');
+   }*/
+
+   $validator = Validator::make($request->all(),[
+    'fileCible' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
+    'fileSource' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+   ]);
+
+   $fileModal = new Media;
+   if($request->file()){
+    $fileNameCible = time().'_'.$request->fileCible->getClientOriginalName();
+    $filePathCible = $request->file('fileCible')->storeAs('uploads', $fileNameCible, 'public');
+    $extensionCible = $request->file('fileCible')->getClientOriginalExtension();
+    
+    $fileNameSource = time().'_'.$request->fileSource->getClientOriginalName();
+    $filePathSource = $request->file('fileSource')->storeAs('uploads', $fileNameSource, 'public');
+    $extensionSource = $request->file('fileSource')->getClientOriginalExtension();
+
+    $fileModal->filePathCible = $filePathCible;
+    $fileModal->filePathSource = $filePathSource;
+    $fileModal->fileNameCible = $fileNameCible;
+    $fileModal->fileNameSource = $fileNameSource;
+    $fileModal->extensionCible = $extensionCible;
+    $fileModal->extensionSource = $extensionSource;
+    $fileModal->save();
+
+    return back()
+    ->with('success','File has been uploaded.');
+   }else{
+    return back()
+    ->with('error','File has not been uploaded.');
    }
 
     }
