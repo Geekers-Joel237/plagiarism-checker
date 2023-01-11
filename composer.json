@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "atomescrochus/laravel-string-similarities": "^2.1",
         "brian2694/laravel-toastr": "^5.57",
+        "caxy/php-htmldiff": "^0.1.14",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",

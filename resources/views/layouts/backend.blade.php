@@ -521,9 +521,19 @@
   <!-- Custom JS File -->
   <script src="{{ asset('assets/js/custom.js') }}"></script>
 
+  <script>
+    function start_plagiat_detection(text1){
+            console.log(text1);
+            // $.get("{{ route('user.PointParPoint.index') }}" + "/" + text1 , function(data) {
+            //     // $("#id_1_delete").val(data.id);
+            //     // $("#deleteactionModal").modal('show');
+            // })
+        };
+  </script>
 
   @yield('scripts')
   {{-- @yield('scripts') --}}
+
 
 </body>
 
