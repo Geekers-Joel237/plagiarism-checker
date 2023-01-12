@@ -27,7 +27,7 @@ class MediaController extends Controller
     public function create()
     {
         //
-      
+
     }
 
     /**
@@ -38,11 +38,11 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-      
+
    /* $validator = Validator::make($request->all(),[
         'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
     ]);
-   
+
 
    $fileModal = new Media;*/
   /* if($request->file()){
@@ -57,7 +57,7 @@ class MediaController extends Controller
 
         return back()
         ->with('success','File has been uploaded.');
-       
+
    }else{
      return back()
     ->with('error','File has not been uploaded.');
@@ -77,8 +77,8 @@ class MediaController extends Controller
     $fileName = time().'_'.$request->file->getClientOriginalName();
     $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
     $extension = $request->file('file')->getClientOriginalExtension();
-    
-   
+
+
 
     $fileModal->filePath = $filePath;
     $fileModal->fileName = $fileName;
@@ -154,37 +154,53 @@ class MediaController extends Controller
     }
 
     public function uploadSource(Request $request){
-        
+
+       $content;
+       $content2 = "contenue 2";
+
         if ($request->file){
             $file = $request->file;
 
             $validator = Validator::make($request->all(),[
              'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
             ]);
-         
+
             $pdfParser = new Parser();
             $pdf = $pdfParser->parseFile($file->path());
             $content = $pdf->getText();
-         
+
             $fileModal = new Media;
 
             if($request->file()){
                 $fileName = time().'_'.$request->file->getClientOriginalName();
                 $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
                 $extension = $request->file('file')->getClientOriginalExtension();
-                
-               
-            
+
+
+
                 $fileModal->filePath = $filePath;
                 $fileModal->fileName = $fileName;
                 $fileModal->extension = $extension;
-            
+
                 $fileModal->save();
-            
+
                // return view('user.PointParPoint', compact('content'));
-            
+
+               if($request->file2){
+
+                $file2 = $request->file2;
+
+
+                $pdfParser2 = new \Smalot\PdfParser\Parser();
+                $pdf2 = $pdfParser2->parseFile($file2->path());
+                $content2 = $pdf2->getText();
+
                 return back()
-                ->with('source', $content);
+                ->with('source', $content)
+                ->with('source2', $content2);
+               }
+
+
                }else{
                 echo "Error";
                // return view('user.PointParPoint', compact('content2'));
@@ -198,5 +214,5 @@ class MediaController extends Controller
         }
     }
 
-    
+
 }

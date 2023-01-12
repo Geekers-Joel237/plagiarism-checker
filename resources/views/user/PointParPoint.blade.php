@@ -198,7 +198,6 @@ ul.exception li:before {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group row mb-4">
-
                                     <div class="col-sm-12 col-md-12">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Source</label>
                                     <textarea class="summernote" >
@@ -207,7 +206,7 @@ ul.exception li:before {
                                         @endif
 
                                     </textarea>
-                                    <input class="btn btn-primary" type="file" name="file" >Charger le document
+                                    <input class="btn btn-primary" type="file" name="file" required>Charger le document
                                     <div class=" mt-3 ">
                                         <button class="btn  btn-warning" type="submit" >
                                             Controlez le plagiat
@@ -226,7 +225,7 @@ ul.exception li:before {
                                             {{ $source2 }}
                                            @endif
                                         </textarea>
-                                        <input class="btn btn-primary" type="file" name="file2" >Charger le document
+                                        <input class="btn btn-primary" type="file" name="file2" required>Charger le document
                                     </div>
                                 </div>
                             </div>
