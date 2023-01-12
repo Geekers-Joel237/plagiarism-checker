@@ -187,7 +187,7 @@ ul.exception li:before {
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('upsource') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-12">
                     <div class="card">
@@ -202,11 +202,14 @@ ul.exception li:before {
                                     <div class="col-sm-12 col-md-12">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Source</label>
                                     <textarea class="summernote" >
-                                        {{$oldHtml}}
+                                        @if ($source = Session::get('source'))
+                                            {{ $source }}
+                                        @endif
+
                                     </textarea>
-                                    <input class="btn btn-primary" type="file" name="fileSource">Charger le document
+                                    <input class="btn btn-primary" type="file" name="file" >Charger le document
                                     <div class=" mt-3 ">
-                                        <button class="btn  btn-warning" onclick="start_plagiat_detection(<?php $oldHtml ?>);" >
+                                        <button class="btn  btn-warning" type="submit" >
                                             Controlez le plagiat
                                         </button>
                                     </div>
@@ -218,8 +221,12 @@ ul.exception li:before {
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-12 col-md-12">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cible</label>
-                                        <textarea class="summernote">{{$newHtml}}</textarea>
-                                        <input class="btn btn-primary" type="file" name="fileCible">Charger le document
+                                        <textarea class="summernote">
+                                            @if ($source2 = Session::get('source2'))
+                                            {{ $source2 }}
+                                           @endif
+                                        </textarea>
+                                        <input class="btn btn-primary" type="file" name="file2" >Charger le document
                                     </div>
                                 </div>
                             </div>
@@ -231,9 +238,9 @@ ul.exception li:before {
 
     </div>
 
-<?php echo $firstContent ?>
+<?php //echo $firstContent ?>
 <br><br>
-<?php var_dump($all)  ?>
+<?php //var_dump($all)  ?>
 
     </section>
 @endsection

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Smalot\PdfParser\Parser;
 
 class MediaController extends Controller
 {
@@ -62,29 +62,31 @@ class MediaController extends Controller
      return back()
     ->with('error','File has not been uploaded.');
    }*/
+   $file = $request->file;
 
    $validator = Validator::make($request->all(),[
-    'fileCible' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
-    'fileSource' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+    'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
    ]);
+
+   $pdfParser = new Parser();
+   $pdf = $pdfParser->parseFile($file->path());
+   $content = $pdf->getText();
 
    $fileModal = new Media;
    if($request->file()){
-    $fileNameCible = time().'_'.$request->fileCible->getClientOriginalName();
-    $filePathCible = $request->file('fileCible')->storeAs('uploads', $fileNameCible, 'public');
-    $extensionCible = $request->file('fileCible')->getClientOriginalExtension();
+    $fileName = time().'_'.$request->file->getClientOriginalName();
+    $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+    $extension = $request->file('file')->getClientOriginalExtension();
     
-    $fileNameSource = time().'_'.$request->fileSource->getClientOriginalName();
-    $filePathSource = $request->file('fileSource')->storeAs('uploads', $fileNameSource, 'public');
-    $extensionSource = $request->file('fileSource')->getClientOriginalExtension();
+   
 
-    $fileModal->filePathCible = $filePathCible;
-    $fileModal->filePathSource = $filePathSource;
-    $fileModal->fileNameCible = $fileNameCible;
-    $fileModal->fileNameSource = $fileNameSource;
-    $fileModal->extensionCible = $extensionCible;
-    $fileModal->extensionSource = $extensionSource;
+    $fileModal->filePath = $filePath;
+    $fileModal->fileName = $fileName;
+    $fileModal->extension = $extension;
+
     $fileModal->save();
+
+    return view('user.PointParPoint', compact('content'));
 
     return back()
     ->with('success','File has been uploaded.');
@@ -150,4 +152,51 @@ class MediaController extends Controller
          $result
         );
     }
+
+    public function uploadSource(Request $request){
+        
+        if ($request->file){
+            $file = $request->file;
+
+            $validator = Validator::make($request->all(),[
+             'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
+            ]);
+         
+            $pdfParser = new Parser();
+            $pdf = $pdfParser->parseFile($file->path());
+            $content = $pdf->getText();
+         
+            $fileModal = new Media;
+
+            if($request->file()){
+                $fileName = time().'_'.$request->file->getClientOriginalName();
+                $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+                $extension = $request->file('file')->getClientOriginalExtension();
+                
+               
+            
+                $fileModal->filePath = $filePath;
+                $fileModal->fileName = $fileName;
+                $fileModal->extension = $extension;
+            
+                $fileModal->save();
+            
+               // return view('user.PointParPoint', compact('content'));
+            
+                return back()
+                ->with('source', $content);
+               }else{
+                echo "Error";
+               // return view('user.PointParPoint', compact('content2'));
+               }
+
+        }else{
+          //  echo "Error";
+            $content2 = "contenue du second area";
+            return back()
+            ->with('source2', $content2);
+        }
+    }
+
+    
 }
