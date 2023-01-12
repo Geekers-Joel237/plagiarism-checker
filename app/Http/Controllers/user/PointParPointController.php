@@ -9,6 +9,8 @@ use Caxy\HtmlDiff\HtmlDiff;
 use Caxy\HtmlDiff\HtmlDiffConfig;
 
 
+
+
 class PointParPointController extends Controller
 {
     /**
@@ -180,4 +182,11 @@ $firstContent = $firstHtmlDiff->build();
     {
         //
     }
+
+    
+ 
+// Display text content 
+
+      
+    
 }
