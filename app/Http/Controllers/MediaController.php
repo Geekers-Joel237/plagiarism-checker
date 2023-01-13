@@ -6,9 +6,14 @@ use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Smalot\PdfParser\Parser;
+use Caxy\HtmlDiff\HtmlDiff;
+use Caxy\HtmlDiff\HtmlDiffConfig;
 
 class MediaController extends Controller
 {
+    public $contenueFile1;
+    public $contenueFile2;
+
     /**
      * Display a listing of the resource.
      *
@@ -71,6 +76,8 @@ class MediaController extends Controller
    $pdfParser = new Parser();
    $pdf = $pdfParser->parseFile($file->path());
    $content = $pdf->getText();
+   $contenueFile1 = $content;
+
 
    $fileModal = new Media;
    if($request->file()){
@@ -168,6 +175,8 @@ class MediaController extends Controller
             $pdfParser = new \Smalot\PdfParser\Parser();
             $pdf = $pdfParser->parseFile($file->path());
             $content = $pdf->getText();
+            $this->contenueFile1 = $content;
+           
          
             $fileModal = new Media;
 
@@ -194,6 +203,7 @@ class MediaController extends Controller
                 $pdfParser2 = new \Smalot\PdfParser\Parser();
                 $pdf2 = $pdfParser2->parseFile($file2->path());
                 $content2 = $pdf2->getText();
+                $this->contenueFile2 = $content2;
 
                 return back()
                 ->with('source', $content)
@@ -212,6 +222,33 @@ class MediaController extends Controller
             return back()
             ->with('source2', $content2);
         }
+    }
+
+    public function traitement(Request $request){
+      
+        
+        //dd($request->content1);
+        $content1 = $request->content1;
+        $content2 = $request->content2;
+        if(!isset($request->content1) || !isset($request->content2)){
+            return back()->with('error','aucun ficher uploader');
+        }
+
+        $htmlDiff = new HtmlDiff($content1, $content2);
+        $htmlDiff->getConfig()
+                ->setMatchThreshold(80)
+                ->setInsertSpaceInReplace(true);
+
+        $content = $htmlDiff->build();
+
+        $comparison = new \Atomescrochus\StringSimilarities\Compare();
+        $similar = $comparison->similarText($content1, $content2); 
+      //  dd($request->content2);
+        return view ('user.traitement',compact('content1', 'content2','content','similar'));
+        //faire compariason
+       //9 return view('user.traitement', compact('fileText1', 'fileText2'));
+       
+
     }
 
     
