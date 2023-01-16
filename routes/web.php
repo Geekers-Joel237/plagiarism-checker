@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
+
+use App\Http\Controllers\PlagiatEnLigneController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,9 @@ Route::get('/',[App\Http\Controllers\DashboardController::class, 'index'])->name
 Route::resource('media',MediaController::class);
 Route::post('upsource',[MediaController::class,'uploadSource'])->name('upsource');
 Route::post('traitement',[MediaController::class,'traitement'])->name('traitement');
+
+Route::resource('enligne',PlagiatEnLigneController::class);
+Route::post('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');
 
 Route::group(['prefix' => 'user', 'namespace' => 'App\Http\Controllers\user', 'as' => 'user.'], function(){
     Route::resource('rapport', 'RapportController');

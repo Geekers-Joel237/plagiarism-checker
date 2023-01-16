@@ -210,7 +210,7 @@ ul.exception li:before {
                                         <input class="btn btn-primary" type="file" name="file" required>Charger le document
                                         <div class=" mt-3 ">
                                             <button class="btn  btn-warning" type="submit" >
-                                                Controlez le plagiat
+                                                Chargez le document
                                             </button>
                                         </div>
                                         
