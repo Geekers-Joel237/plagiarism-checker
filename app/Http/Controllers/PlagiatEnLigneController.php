@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Caxy\HtmlDiff\HtmlDiff;
 use Caxy\HtmlDiff\HtmlDiffConfig;
+use \NumberFormatter;
 
 class PlagiatEnLigneController extends Controller
 {
@@ -43,7 +44,7 @@ class PlagiatEnLigneController extends Controller
         //
         $file = $request->file;
         $validator = Validator::make($request->all(),[
-        'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048', 
+        'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
         ]);
 
         $pdfParser = new \Smalot\PdfParser\Parser();
@@ -55,11 +56,11 @@ class PlagiatEnLigneController extends Controller
           $fileName = time().'_'.$request->file->getClientOriginalName();
           $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
           $extension = $request->file('file')->getClientOriginalExtension();
-    
+
           $fileModal->filePath = $filePath;
           $fileModal->fileName = $fileName;
           $fileModal->extension = $extension;
-          
+
           $fileModal->save();
 
           return back()
@@ -116,12 +117,15 @@ class PlagiatEnLigneController extends Controller
     public function traitementEnligne(Request $request){
         $media = Media::all();
         $arrayPath = array();
-        
+
         $arrayMaxPlagiat = array();
         $arrayPlagiat = [
+            "path_cible"=>"",
+            "path_source"=>"",
             "content"=> "",
             "pourcentage"=> 0,
-            "diff"=>"",
+            "diff"=>""
+
         ];
 
         foreach ($media as $file){
@@ -129,28 +133,33 @@ class PlagiatEnLigneController extends Controller
         }
 
         //element de comparaison
-        $comparison = new \Atomescrochus\StringSimilarities\Compare();  
-       
+        $comparison = new \Atomescrochus\StringSimilarities\Compare();
+
         //element de recuparation
         $pdfParser = new \Smalot\PdfParser\Parser();
         $content ;
         //element de difference
         $diff ;
         foreach ($arrayPath as $path){
-            //calcul de comparaison 
+            //calcul de comparaison
             $pdf = $pdfParser->parseFile("storage/".$path);
             $content = $pdf->getText();
-            $similar = $comparison->similarText($request->content, $content); 
+            $similar = $comparison->similarText($request->content, $content);
+            $similar = number_format((float)$similar, 2, '.', '');
+            // $formatter = new NumberFormatter('en_US', NumberFormatter::PERCENT);
+            // $similar =  $formatter->format($similar);
             //difference
             $htmlDiff = new HtmlDiff($request->content, $content);
             $htmlDiff->getConfig()
                      ->setMatchThreshold(80)
                      ->setInsertSpaceInReplace(true);
             $diff =$htmlDiff->build();
-            //rempliage de l'array de comparaison 
+            //rempliage de l'array de comparaison
             $arrayPlagiat["pourcentage"] = $similar;
             $arrayPlagiat["content"] = $content;
             $arrayPlagiat["diff"] = $diff;
+            $arrayPlagiat["path_cible"] = $path;
+            // $arrayPlagiat["path_source"] = $diff;
             //remplisage array max palgiat
             for($i = 0 ; $i <= count($arrayMaxPlagiat); $i++){
                 if(count($arrayMaxPlagiat)<5){
@@ -170,9 +179,12 @@ class PlagiatEnLigneController extends Controller
             }
         }
 
-        dd($arrayMaxPlagiat);
+        return \view('user.records',\compact(
+            'arrayMaxPlagiat'
+        ));
+        // dd($arrayMaxPlagiat);
 
 
-       
-    } 
+
+    }
 }
