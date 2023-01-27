@@ -81,7 +81,7 @@
 
                                                 <td>2018-01-20</td>
 
-                                                <td><a href="#" class="btn btn-primary">Voir le rapport</a></td>
+                                                <td><a href="#" class="btn btn-primary">Détails</a></td>
                                             </tr>
                                         @endforeach
 
