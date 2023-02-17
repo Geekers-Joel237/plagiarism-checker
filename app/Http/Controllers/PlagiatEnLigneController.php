@@ -115,8 +115,11 @@ class PlagiatEnLigneController extends Controller
     }
 
     public function traitementEnligne(Request $request){
+
         $media = Media::all();
         $arrayPath = array();
+
+        $cible ;
 
         $arrayMaxPlagiat = array();
         $arrayPlagiat = [
@@ -127,6 +130,8 @@ class PlagiatEnLigneController extends Controller
             "diff"=>""
 
         ];
+
+        $cible = $media[$media->count() - 1]->filePath;
 
         foreach ($media as $file){
           array_push($arrayPath, $file->filePath);
@@ -159,7 +164,7 @@ class PlagiatEnLigneController extends Controller
             $arrayPlagiat["content"] = $content;
             $arrayPlagiat["diff"] = $diff;
             $arrayPlagiat["path_cible"] = $path;
-            // $arrayPlagiat["path_source"] = $diff;
+            $arrayPlagiat["path_source"] = $cible;
             //remplisage array max palgiat
             for($i = 0 ; $i <= count($arrayMaxPlagiat); $i++){
                 if(count($arrayMaxPlagiat)<5){
