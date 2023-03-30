@@ -1,6 +1,8 @@
-@extends('layouts.backend')
+<!DOCTYPE html>
+<html>
 
-@section('content')
+<head>
+
     <style>
         /* Difference Highlighting and Strike-through
                 ------------------------------------------------ */
@@ -159,112 +161,55 @@
         }
     </style>
 
-    <section class="section">
-        <div class="section-body">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
 
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                            <li class="breadcrumb-item " aria-current="page">Détection</li>
-                            <li class="breadcrumb-item " aria-current="page">Document à Document</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+        .content {
+            margin-top: 30px,
+            margin-bottom: 30px,
+            margin-top: 30px
+        }
+    </style>
+</head>
 
+<body>
+    <h1>{{$title}}</h1>
+    <div>
+        <h3>Score de plagiat</h3>
+        <p>{{$scorePlagiat}}</p>
+    </div>
 
-            <div class="row">
+    <div class="content">
 
-                <form action="{{ route('upsource') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4> </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group row mb-4">
-                                            <div class="col-sm-12 col-md-12">
-                                                <label
-                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Source</label>
-                                                <textarea class="summernote">
-                                            {{ $content1 }}
-                                                
-                                            </textarea>
-                                                <input class="btn btn-primary" type="file" name="file"
-                                                    required>Charger le document
+       <div class="source" style="magin-top:10px">
+        <h3>Doucument Source</h3>
+            <P>{{$source}} </P>
+       </div>
 
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group row mb-4">
-                                            <div class="col-sm-12 col-md-12">
-                                                <label
-                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cible</label>
-                                                <textarea class="summernote">
-                                                {{ $content2 }}
-                                            </textarea>
-                                                <input class="btn btn-primary" type="file" name="file2"
-                                                    required>Charger le document
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- {{$content}} --}}
-                                </div>
-                            </div>
-                        </div>
-                </form>
-            </div>
-
-
-            <div class="row ">
-                <div class="col-12 col-sm-12 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Comparaison</label>
-                                    <textarea class="summernote">
-                                        <?php echo $content; ?> 
-                                    </textarea>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <form action="{{ route('generationRaport') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="text" name="scorePlagiat" value={{ $similar }} style="display:none">
        
-        <textarea name="source" id="" cols="30" rows="10" style="display:none">
-            {{ $content1 }}
-        </textarea>
-
-        <textarea name="cible" id="" cols="30" rows="10" style="display:none">
-            {{$content2}}
-        </textarea>
-       
-        <textarea name="comparaison" id="" cols="30" rows="10" style="display:none">
-            {{$content}}
-        </textarea>
-
-        <button class="btn btn-warning" type="submit">
-            Voir le rapport
-        </button>
-    </form>
+       <div class="cible" style="magin-top:10px">
+        <h3>Doucument Cible</h3>
+            <P>{{$cible}} </P>
+       </div>
 
 
-    {{ $similar }}
-@endsection
+       <div class="cible" style="margin-top:30px">
+        <h3>Rapport de Plagiat</h3>
+        <p> <?php echo($Comparaison) ?></p>
+       </div>
+
+    </div>
+
+
+</body>
+
+</html>

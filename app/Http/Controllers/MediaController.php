@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Smalot\PdfParser\Parser;
 use Caxy\HtmlDiff\HtmlDiff;
 use Caxy\HtmlDiff\HtmlDiffConfig;
+use PDF;
 
 class MediaController extends Controller
 {
@@ -251,5 +252,20 @@ class MediaController extends Controller
 
     }
 
+    public function generationRaport(Request $request){
+     //  dd($request->source);
+
+        $data = [
+            "title" => "Rapport de plagiat",
+            "content" => "ici seras le contenue du pdf",
+            "scorePlagiat" => $request->scorePlagiat,
+            "source" => $request->source,
+            "cible" => $request->cible,
+            "Comparaison" => $request->comparaison
+        ];
+
+        $pdf = \PDF::loadView('user.ContenueRapport', $data);
+        return $pdf->stream();
+    }
     
 }
