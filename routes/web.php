@@ -24,7 +24,7 @@ Route::resource('media',MediaController::class);
 Route::post('upsource',[MediaController::class,'uploadSource'])->name('upsource');
 Route::post('traitement',[MediaController::class,'traitement'])->name('traitement');
 Route::resource('enligne',PlagiatEnLigneController::class);
-Route::get('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');
+Route::post('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');
 
 Route::post('generationRaport', [MediaController::class,'generationRaport'])->name('generationRaport');
 
