@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlagiatOnlineController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 
@@ -23,6 +24,7 @@ Route::get('/',[App\Http\Controllers\DashboardController::class, 'index'])->name
 Route::resource('media',MediaController::class);
 Route::post('upsource',[MediaController::class,'uploadSource'])->name('upsource');
 Route::post('traitement',[MediaController::class,'traitement'])->name('traitement');
+Route::post('plagiat_en_ligne',[PlagiatOnlineController::class,'check_plagiat'])->name('plagiat_en_ligne');
 
 Route::resource('enligne',PlagiatEnLigneController::class);
 Route::post('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');

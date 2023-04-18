@@ -14,7 +14,9 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "smalot/pdfparser": "^2.3"
+        "php-http/guzzle7-adapter": "^1.0",
+        "smalot/pdfparser": "^2.3",
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
