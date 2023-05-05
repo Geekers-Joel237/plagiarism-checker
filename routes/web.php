@@ -27,7 +27,7 @@ Route::post('traitement',[MediaController::class,'traitement'])->name('traitemen
 Route::post('plagiat_en_ligne',[PlagiatOnlineController::class,'check_plagiat'])->name('plagiat_en_ligne');
 
 Route::resource('enligne',PlagiatEnLigneController::class);
-Route::get('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');
+Route::post('traitementEnligne',[PlagiatEnLigneController::class,'traitementEnligne'])->name('traitementEnligne');
 
 Route::post('generationRaport', [MediaController::class,'generationRaport'])->name('generationRaport');
 
