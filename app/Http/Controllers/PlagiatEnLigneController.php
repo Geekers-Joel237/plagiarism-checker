@@ -138,8 +138,7 @@ class PlagiatEnLigneController extends Controller
         }
 
         //element de comparaison
-        $comparison = new \Atomescrochus\StringSimilarities\Compare();
-
+       
         //element de recuparation
         $pdfParser = new \Smalot\PdfParser\Parser();
         $content ;
